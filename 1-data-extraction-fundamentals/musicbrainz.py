@@ -88,5 +88,44 @@ def main():
     for t in release_titles:
         print (t)
 
+    print()
+
+    # Getting Nirvana's aliases
+    artist_aliases = query_by_name(ARTIST_URL, query_type["aliases"], "Nirvana")
+    # went through the full list of aliases
+    # coundn't find the Spanish alias, so skipping that
+
+    # Getting Nirvana's disambiguation
+    print('DISAMBIGUATIONS BY NIRVANA:')
+    artists_nirvana = artist_aliases['artists']
+    disambiguations_nirvama = [info['disambiguation'] for info in artists_nirvana if 'disambiguation' in info]
+    print(disambiguations_nirvama)
+
+    print()    
+
+    # Getting Queen's begin-area name
+    print('QUEEN BEGIN AREAS:')
+    queen_search = query_by_name(ARTIST_URL, query_type["simple"], 'Queen')['artists']
+    begin_areas_queen = [qs['begin-area']['name'] for qs in queen_search if 'begin-area' in qs]
+    print(begin_areas_queen)
+
+    print()
+
+    # Getting One Directions's launch year
+    print('ONE DIRECTION LIFE SPANS:')
+    one_d = query_by_name(ARTIST_URL, query_type, "One Direction")['artists']
+    life_spans_one_d = [od['life-span'] for od in one_d if 'life-span' in od]
+    print(life_spans_one_d)
+
+    print()
+
+    # Getting First Aid Kit's band names (I think)
+    print("FIRST AID KIT NAMES:")
+    first_aid_kit: dict = query_by_name(ARTIST_URL, query_type["simple"], "First Aid Kit")
+    names_fkit = [item['name'].lower() for item in first_aid_kit['artists'] if 'name' in item]
+    print(set(names_fkit))
+
+    print()
+
 if __name__ == '__main__':
     main()
